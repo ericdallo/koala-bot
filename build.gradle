@@ -13,6 +13,10 @@ buildscript {
         jcenter()
     }
 }
+task execute(type:JavaExec) {
+   main = 'br.com.koala.KoalaApplication'
+   classpath = sourceSets.main.runtimeClasspath
+}
 
 repositories {
     mavenCentral()
@@ -30,6 +34,4 @@ eclipse {
 dependencies {
     compile 'org.telegram:telegrambots:3.0.2'
     compile 'org.slf4j:slf4j-simple:1.6.1'
-    
-    
 }
