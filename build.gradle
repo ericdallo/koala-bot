@@ -5,6 +5,14 @@ compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+jar {
+  manifest {
+    attributes(
+      'Class-Path': configurations.compile,
+      'Main-Class': 'br.com.koala.KoalaApplication'
+    )
+  }
+}
 
 buildscript {
     repositories {
@@ -13,10 +21,21 @@ buildscript {
         jcenter()
     }
 }
-task execute(type:JavaExec) {
+
+task execute(type:JavaExec, dependsOn: ['build', 'clean']) {
    main = 'br.com.koala.KoalaApplication'
    classpath = sourceSets.main.runtimeClasspath
 }
+
+task stage(dependsOn: ['build', 'clean'])
+
+task copyToLib(type: Copy) {
+    into "$buildDir/lib"
+    from(configurations.compile)
+}
+
+build.mustRunAfter clean
+execute.dependsOn(copyToLib)
 
 repositories {
     mavenCentral()

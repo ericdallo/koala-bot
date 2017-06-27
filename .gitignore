@@ -20,4 +20,12 @@ build/
 # MACOS
 .DS_Store
 
+# Heroku
+.idea
+out
+*.iml
+*.ipr
+*.iws
+
+# Application
 config.properties
