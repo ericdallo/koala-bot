@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+}
+
+eclipse {
+    classpath {
+        downloadJavadoc = false
+        downloadSources = true
+    }
+}
+
+dependencies {
+    compile 'org.telegram:telegrambots:3.0.2'
+    compile 'org.slf4j:slf4j-simple:1.6.1'
+    
+    
+}
