@@ -4,7 +4,7 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import br.com.koala.listener.RandomListener;
+import br.com.koala.listener.IncestoNicksListener;
 
 public class KoalaApplication {
 
@@ -14,7 +14,7 @@ public class KoalaApplication {
 		TelegramBotsApi botsApi = new TelegramBotsApi();
 
 		try {
-            botsApi.registerBot(new RandomListener());
+            botsApi.registerBot(new IncestoNicksListener());
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
