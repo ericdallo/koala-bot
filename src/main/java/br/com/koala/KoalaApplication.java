@@ -1,22 +1,16 @@
 package br.com.koala;
 
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-import br.com.koala.listener.IncestoNicksListener;
-
+@SpringBootApplication
+@EnableScheduling
 public class KoalaApplication {
 
 	public static void main(String[] args) {
-		ApiContextInitializer.init();
-		
-		TelegramBotsApi botsApi = new TelegramBotsApi();
-
-		try {
-            botsApi.registerBot(new IncestoNicksListener());
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+		new SpringApplicationBuilder(KoalaApplication.class)
+			.web(false)
+			.run(args);
 	}
 }

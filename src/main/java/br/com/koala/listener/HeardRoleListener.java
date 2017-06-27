@@ -7,28 +7,27 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.SendMessage;
 
-import br.com.koala.configuration.Command;
-import br.com.koala.nicks.IncestoNicks;
 import br.com.koala.pooling.TextListener;
 
 @Component
-class IncestoNicksListener extends TextListener {
-	
+class HeardRoleListener extends TextListener {
+
 	@Autowired
-	IncestoNicksListener(TelegramBot bot) {
+	HeardRoleListener(TelegramBot bot) {
 		super(bot);
 	}
-	
+
 	@Override
 	public void listen(Message message) {
-		Long chatId = message.chat().id();
 		
-		bot.execute(new SendMessage(chatId, "Quem é @" + IncestoNicks.random() + " ?"));
+		bot.execute(new SendMessage(message.chat().id(), "Ouvi rolê?"));
 	}
 
 	@Override
 	public boolean match(Message message) {
-		return Command.is(message.text(), Command.NICKS);
+		String text = message.text();
+		
+		return text.contains(" role") || text.contains(" rolê");
 	}
 
 }

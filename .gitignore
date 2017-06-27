@@ -20,4 +20,4 @@ build/
 # MACOS
 .DS_Store
 
-config.properties
+application.properties
