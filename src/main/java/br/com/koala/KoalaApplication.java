@@ -11,8 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class KoalaApplication {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(KoalaApplication.class)
-			.web(false)
-			.run(args);
+		new SpringApplicationBuilder(KoalaApplication.class).run(args);
 	}
 }
