@@ -2,3 +2,10 @@ pooling.frequency=500
 
 telegram.bot.name=KoalaIncestualBot
 telegram.bot.token=
+
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/koala?useTimezone=true&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=
+
+hibernate.show_sql=false

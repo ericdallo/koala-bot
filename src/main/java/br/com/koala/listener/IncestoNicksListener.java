@@ -9,7 +9,6 @@ import com.pengrad.telegrambot.request.SendMessage;
 
 import br.com.koala.configuration.Command;
 import br.com.koala.nicks.IncestoNicks;
-import br.com.koala.pooling.TextListener;
 
 @Component
 class IncestoNicksListener extends TextListener {
@@ -20,10 +19,10 @@ class IncestoNicksListener extends TextListener {
 	}
 	
 	@Override
-	public void listen(Message message) {
+	public SendMessage listen(Message message) {
 		Long chatId = message.chat().id();
 		
-		bot.execute(new SendMessage(chatId, "Quem é @" + IncestoNicks.random() + " ?"));
+		return new SendMessage(chatId, "Quem é @" + IncestoNicks.random() + " ?");
 	}
 
 	@Override

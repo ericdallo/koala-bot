@@ -7,7 +7,6 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.SendMessage;
 
-import br.com.koala.pooling.TextListener;
 
 @Component
 class HeardRoleListener extends TextListener {
@@ -18,9 +17,9 @@ class HeardRoleListener extends TextListener {
 	}
 
 	@Override
-	public void listen(Message message) {
+	public SendMessage listen(Message message) {
 		
-		bot.execute(new SendMessage(message.chat().id(), "Ouvi rolê?"));
+		return new SendMessage(message.chat().id(), "Ouvi rolê?");
 	}
 
 	@Override

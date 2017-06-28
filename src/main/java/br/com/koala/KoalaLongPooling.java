@@ -12,7 +12,7 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.GetUpdates;
 
 import br.com.koala.configuration.UpdateOffset;
-import br.com.koala.pooling.TextListener;
+import br.com.koala.listener.TextListener;
 
 @Component
 class KoalaLongPooling {

@@ -1,10 +1,11 @@
-package br.com.koala.pooling;
+package br.com.koala.listener;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.request.SendChatAction;
+import com.pengrad.telegrambot.request.SendMessage;
 
 public abstract class TextListener {
 	
@@ -14,7 +15,7 @@ public abstract class TextListener {
 		this.bot = bot;
 	}
 
-	public abstract void listen(Message message);
+	public abstract SendMessage listen(Message message);
 	
 	public abstract boolean match(Message message);
 	
@@ -24,7 +25,9 @@ public abstract class TextListener {
 		if (message != null && message.text() != null && match(message)) {
 			bot.execute(new SendChatAction(message.chat().id(), ChatAction.typing.name()));
 			
-			listen(message);
+			SendMessage messageToReply = listen(message);
+			
+			bot.execute(messageToReply);
 		}
 	}
 	

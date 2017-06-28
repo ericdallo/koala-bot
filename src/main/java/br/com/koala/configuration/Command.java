@@ -2,10 +2,18 @@ package br.com.koala.configuration;
 
 public enum Command {
 
-	ROLES,
-	NICKS;
+	NICKS("nicks"),
+	ROLES("roles"),
+	NEW_ROLE("marcar_role"),
+	;
+	
+	private String name;
+	
+	private Command(String name) {
+		this.name = name;
+	}
 
 	public static boolean is(String text, Command command) {
-		return text.startsWith("/" + command.name().toLowerCase());
+		return text.startsWith("/" + command.name);
 	}
 }
