@@ -30,7 +30,7 @@ class ShowRolesListener extends TextListener {
 	@Override
 	public SendMessage listen(Message message) {
 		List<Role> roles = repository.findAll();
-		
+			
 		if (roles.isEmpty()) {
 			return new SendMessage(message.chat().id(), "*Nenhum* rolê marcado \uD83D\uDE12")
 						.parseMode(Markdown);
@@ -39,10 +39,10 @@ class ShowRolesListener extends TextListener {
 		StringBuilder messageToSend = new StringBuilder("Rolês marcados: \n");
 		
 		roles.forEach(role -> {
-			messageToSend.append(" - *" + role.getTitle() + "*");
+			messageToSend.append(role.getFormattedDate() + " - *" + role.getTitle() + "*" + "\n");
 		});
 		
-		messageToSend.append("\n\nEae, vamo fecha ?");
+		messageToSend.append("\nEae, vamo fecha ?");
 		
 		return new SendMessage(message.chat().id(), messageToSend.toString())
 						.parseMode(ParseMode.Markdown);

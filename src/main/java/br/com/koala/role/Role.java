@@ -1,5 +1,8 @@
 package br.com.koala.role;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,13 +20,16 @@ public class Role {
 	@Column(name = "title")
 	private String title;
 	
-	//Hibernate eyes only
-	@Deprecated
+	@Column(name = "date")
+	private LocalDateTime date;
+	
+	@Deprecated //Hibernate eyes only
 	Role() {}
 	
-	public Role(Long id, String title) {
+	public Role(Long id, String title, LocalDateTime date) {
 		this.id = id;
 		this.title = title;
+		this.date = date;
 	}
 
 	public Long getId() {
@@ -34,4 +40,7 @@ public class Role {
 		return title;
 	}
 	
+	public String getFormattedDate() {
+		return date.format(DateTimeFormatter.ofPattern("dd/MM HH:mm EEEE"));
+	}
 }

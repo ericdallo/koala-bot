@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
+import com.pengrad.telegrambot.model.Venue;
 import com.pengrad.telegrambot.request.SendMessage;
 
 import br.com.koala.configuration.Command;
