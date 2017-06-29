@@ -1,4 +1,4 @@
-package br.com.koala.listener;
+package br.com.koala.listener.text;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
@@ -30,6 +30,5 @@ public abstract class TextListener {
 			bot.execute(messageToReply);
 		}
 	}
-	
 
 }

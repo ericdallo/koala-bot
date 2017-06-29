@@ -1,4 +1,4 @@
-package br.com.koala.listener;
+package br.com.koala.listener.text;
 
 import static com.pengrad.telegrambot.model.request.ParseMode.Markdown;
 

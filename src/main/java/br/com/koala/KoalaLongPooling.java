@@ -12,7 +12,8 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.GetUpdates;
 
 import br.com.koala.configuration.UpdateOffset;
-import br.com.koala.listener.TextListener;
+import br.com.koala.listener.inline.InlineListener;
+import br.com.koala.listener.text.TextListener;
 
 @Component
 class KoalaLongPooling {
@@ -22,9 +23,11 @@ class KoalaLongPooling {
 	@Autowired
 	private TelegramBot bot;
 	@Autowired
-	private List<TextListener> koalaTextPooling;
+	private List<TextListener> textPooling;
 	@Autowired
 	private UpdateOffset updateOffset;
+	@Autowired
+	private List<InlineListener> inlinePooling;
 	
 	@Scheduled(fixedDelayString = "${pooling.frequency}")
 	void pooling() {
@@ -32,8 +35,10 @@ class KoalaLongPooling {
 		   .updates()
 		   .forEach(update -> {
 			   updateOffset.increment(update.updateId());
+			   
 			   try {
-				   koalaTextPooling.forEach(listener -> listener.preListen(update));
+				   textPooling.forEach(listener -> listener.preListen(update));
+				   inlinePooling.forEach(listener -> listener.preListen(update));
 			   } catch (Exception e) {
 				   LOGGER.error("Error on listening", e);
 			   }
