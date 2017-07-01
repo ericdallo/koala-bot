@@ -23,11 +23,9 @@ class GifInlineListener extends InlineListener {
 
 	@Override
 	public AnswerInlineQuery listen(InlineQuery query) {
-		InlineQueryResultGif[] gifs = new InlineQueryResultGif[]{};
-		
-		gifs = gifsRepository.findAll()
+		InlineQueryResultGif[] gifs = gifsRepository.findAll()
 			 .stream()
-			 .map(gif -> new InlineQueryResultGif(query.id(), gif.getUrl(), gif.getUrl()))
+			 .map(gif -> new InlineQueryResultGif(gif.getUrl(), gif.getUrl(), gif.getUrl()))
 			 .toArray(InlineQueryResultGif[]::new);
 			
 		return new AnswerInlineQuery(query.id(), gifs)

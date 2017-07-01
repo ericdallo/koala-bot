@@ -34,7 +34,6 @@ class KoalaLongPooling {
 		bot.execute(new GetUpdates().limit(100).offset(updateOffset.get()))
 		   .updates()
 		   .forEach(update -> {
-			   updateOffset.increment(update.updateId());
 			   
 			   try {
 				   textPooling.forEach(listener -> listener.preListen(update));
@@ -42,6 +41,8 @@ class KoalaLongPooling {
 			   } catch (Exception e) {
 				   LOGGER.error("Error on listening", e);
 			   }
+			   
+			   updateOffset.increment(update.updateId());
 		   });
 	}
 
