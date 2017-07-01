@@ -12,6 +12,7 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.GetUpdates;
 
 import br.com.koala.configuration.UpdateOffset;
+import br.com.koala.listener.callback.CallbackListener;
 import br.com.koala.listener.inline.InlineListener;
 import br.com.koala.listener.text.TextListener;
 
@@ -28,6 +29,8 @@ class KoalaLongPooling {
 	private UpdateOffset updateOffset;
 	@Autowired
 	private List<InlineListener> inlinePooling;
+	@Autowired
+	private List<CallbackListener> callbackPooling;
 	
 	@Scheduled(fixedDelayString = "${pooling.frequency}")
 	void pooling() {
@@ -35,9 +38,11 @@ class KoalaLongPooling {
 		   .updates()
 		   .forEach(update -> {
 			   
+			   //TODO open a thread for each listener for best performance
 			   try {
 				   textPooling.forEach(listener -> listener.preListen(update));
 				   inlinePooling.forEach(listener -> listener.preListen(update));
+				   callbackPooling.forEach(listener -> listener.preListen(update));
 			   } catch (Exception e) {
 				   LOGGER.error("Error on listening", e);
 			   }

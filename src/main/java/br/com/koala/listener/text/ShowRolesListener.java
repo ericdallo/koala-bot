@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
+import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
+import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
 
@@ -32,8 +34,13 @@ class ShowRolesListener extends TextListener {
 		List<Role> roles = repository.findAll();
 			
 		if (roles.isEmpty()) {
+			InlineKeyboardMarkup newRoleKeyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+	                new InlineKeyboardButton("Marcar role").callbackData("/marcar_role")
+	        });
+
 			return new SendMessage(message.chat().id(), "*Nenhum* rolê marcado \uD83D\uDE12")
-						.parseMode(Markdown);
+						.parseMode(Markdown)
+						.replyMarkup(newRoleKeyboard);
 		}
 		
 		StringBuilder messageToSend = new StringBuilder("Rolês marcados: \n");
