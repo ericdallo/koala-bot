@@ -1,11 +1,15 @@
 package br.com.koala.listener.text;
 
+import static br.com.koala.configuration.Command.ROLES;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.SendMessage;
+
+import br.com.koala.configuration.Command;
 
 
 @Component
@@ -28,7 +32,7 @@ class HeardRoleListener extends TextListener {
 	public boolean match(Message message) {
 		String text = message.text();
 		
-		return text.matches(ROLE_REGEXP);
+		return !Command.is(text, ROLES) && text.matches(ROLE_REGEXP);
 	}
 
 }
