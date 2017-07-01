@@ -11,6 +11,8 @@ import com.pengrad.telegrambot.request.SendMessage;
 @Component
 class HeardRoleListener extends TextListener {
 
+	private static final String ROLE_REGEXP = "(.*)(R|r)(o|O)(l|L)(e|ê|E|Ê)(.*)";
+
 	@Autowired
 	HeardRoleListener(TelegramBot bot) {
 		super(bot);
@@ -26,7 +28,7 @@ class HeardRoleListener extends TextListener {
 	public boolean match(Message message) {
 		String text = message.text();
 		
-		return text.contains(" role") || text.contains(" rolê");
+		return text.matches(ROLE_REGEXP);
 	}
 
 }
