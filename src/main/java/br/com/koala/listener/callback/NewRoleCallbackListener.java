@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.CallbackQuery;
-import com.pengrad.telegrambot.request.SendMessage;
 
 import br.com.koala.configuration.Command;
 import br.com.koala.listener.text.NewRoleListener;
@@ -24,8 +23,8 @@ class NewRoleCallbackListener extends CallbackListener {
 	}
 
 	@Override
-	public SendMessage listen(CallbackQuery callback) {
-		return newRoleListener.listen(callback.message());
+	public void listen(CallbackQuery callback) {
+		bot.execute(newRoleListener.listen(callback.message()));
 	}
 
 	@Override

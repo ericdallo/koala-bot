@@ -5,7 +5,6 @@ import com.pengrad.telegrambot.model.CallbackQuery;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.request.SendChatAction;
-import com.pengrad.telegrambot.request.SendMessage;
 
 public abstract class CallbackListener {
 	
@@ -15,7 +14,7 @@ public abstract class CallbackListener {
 		this.bot = bot;
 	}
 
-	public abstract SendMessage listen(CallbackQuery callback);
+	public abstract void listen(CallbackQuery callback);
 	
 	public abstract boolean match(CallbackQuery callback);
 	
@@ -25,7 +24,7 @@ public abstract class CallbackListener {
 		if (callback != null && match(callback)) {
 			bot.execute(new SendChatAction(callback.inlineMessageId(), ChatAction.typing.name()));
 			
-			bot.execute(listen(callback));
+			listen(callback);
 		}
 	}
 }

@@ -2,6 +2,8 @@ package br.com.koala.listener.text;
 
 import static br.com.koala.configuration.Command.NEW_ROLE;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +25,7 @@ public class NewRoleListener extends TextListener {
 	@Override
 	public SendMessage listen(Message message) {
 		return new SendMessage(message.chat().id(), "Qual a data do role?")
-					.replyMarkup(new CalendarKeyboard());
+					.replyMarkup(new CalendarKeyboard(LocalDate.now()));
 	}
 
 	@Override
