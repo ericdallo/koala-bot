@@ -27,6 +27,9 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 
 public class CalendarKeyboard extends InlineKeyboardMarkup {
 
+	public static final String NEXT_MONTH_PREFIX = "/calendar-next_";
+	public static final String BACK_MONTH_PREFIX = "/calendar-back_";
+	public static final String CHOOSE_DATE_PREFIX = "/calendar-choose_";
 	private static final long serialVersionUID = 5354476177850625979L;
 
 	public CalendarKeyboard(LocalDate date) {
@@ -140,9 +143,9 @@ public class CalendarKeyboard extends InlineKeyboardMarkup {
 		long backMilis = date.minusMonths(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 		long nextMilis = date.plusMonths(1).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 		
-		InlineKeyboardButton back = button("<", "/calendar-back_" + backMilis);
+		InlineKeyboardButton back = button("<", BACK_MONTH_PREFIX + backMilis);
 		InlineKeyboardButton nothing = button(" ", "/calendar-nothing");
-		InlineKeyboardButton next = button(">", "/calendar-next_" + nextMilis);
+		InlineKeyboardButton next = button(">", NEXT_MONTH_PREFIX + nextMilis);
 
 		return new InlineKeyboardButton[] { back, nothing, next };
 	}
@@ -153,7 +156,7 @@ public class CalendarKeyboard extends InlineKeyboardMarkup {
 	}
 	
 	private static String calendarInString(Optional<GregorianCalendar> calendar) {
-		return calendar.map(c -> "/calendar-choose_" + c.getTimeInMillis())
+		return calendar.map(c -> CHOOSE_DATE_PREFIX + c.getTimeInMillis())
 					   .orElse(" ");
 	}
 

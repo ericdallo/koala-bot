@@ -10,16 +10,16 @@ import org.springframework.stereotype.Component;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.CallbackQuery;
-import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.request.EditMessageReplyMarkup;
 
 import br.com.koala.keyboard.CalendarKeyboard;
+import br.com.koala.utils.SimpleTimeKeyboard;
 
 @Component
-class ChangeCalendarCallbackListener extends CallbackListener {
+class BackChooseDateCallbackListener extends TimeCallbackListener {
 
 	@Autowired
-	ChangeCalendarCallbackListener(TelegramBot bot) {
+	BackChooseDateCallbackListener(TelegramBot bot) {
 		super(bot);
 	}
 
@@ -29,17 +29,13 @@ class ChangeCalendarCallbackListener extends CallbackListener {
 		
 		LocalDate date = LocalDateTime.ofInstant(Instant.ofEpochMilli(milis.longValue()), ZoneId.systemDefault()).toLocalDate();
 		
-		Message message = callback.message();
-		EditMessageReplyMarkup editedMessage = new EditMessageReplyMarkup(message.chat().id(), message.messageId(), message.text())
-						.replyMarkup(new CalendarKeyboard(date));
-		
-		bot.execute(editedMessage);
+		bot.execute(new EditMessageReplyMarkup(callback.message().chat().id(), callback.message().messageId(), "Qual a data do role então?")
+						.replyMarkup(new CalendarKeyboard(date)));
 	}
 
 	@Override
-	public boolean match(CallbackQuery callback) {
-		return callback.data().startsWith(CalendarKeyboard.BACK_MONTH_PREFIX) || 
-			   callback.data().startsWith(CalendarKeyboard.NEXT_MONTH_PREFIX);
+	boolean timeMatch(String action) {
+		return action.startsWith(SimpleTimeKeyboard.BACK);
 	}
 
 }
