@@ -34,8 +34,8 @@ public class SimpleTimeKeyboard extends InlineKeyboardMarkup {
 	private static InlineKeyboardButton[] time(Long milis) {
 		LocalDateTime time = LocalDateTime.ofInstant(Instant.ofEpochMilli(milis.longValue()), ZoneId.systemDefault());
 		
-		InlineKeyboardButton hour = new InlineKeyboardButton(time.getHour() + "").callbackData(" ");
-		InlineKeyboardButton minute = new InlineKeyboardButton(time.getMinute() + "").callbackData(" ");
+		InlineKeyboardButton hour = new InlineKeyboardButton(time.getHour() + " h").callbackData(" ");
+		InlineKeyboardButton minute = new InlineKeyboardButton(time.getMinute() + " min").callbackData(" ");
 		
 		return new InlineKeyboardButton[] { hour, minute};
 	}

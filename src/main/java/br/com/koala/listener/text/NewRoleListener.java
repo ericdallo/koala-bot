@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
+import com.pengrad.telegrambot.request.EditMessageText;
 import com.pengrad.telegrambot.request.SendMessage;
 
 import br.com.koala.configuration.Command;
@@ -24,6 +25,8 @@ public class NewRoleListener extends TextListener {
 
 	@Override
 	public SendMessage listen(Message message) {
+		bot.execute(new EditMessageText(message.chat().id(), message.messageId(), message.text()));
+		
 		return new SendMessage(message.chat().id(), "Qual a data do role?")
 					.replyMarkup(new CalendarKeyboard(LocalDate.now()));
 	}

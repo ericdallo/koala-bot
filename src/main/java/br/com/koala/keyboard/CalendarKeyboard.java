@@ -26,11 +26,12 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 
 public class CalendarKeyboard extends InlineKeyboardMarkup {
+	
+	private static final long serialVersionUID = 1L;
 
 	public static final String NEXT_MONTH_PREFIX = "/calendar-next_";
 	public static final String BACK_MONTH_PREFIX = "/calendar-back_";
 	public static final String CHOOSE_DATE_PREFIX = "/calendar-choose_";
-	private static final long serialVersionUID = 5354476177850625979L;
 
 	public CalendarKeyboard(LocalDate date) {
 		super(monthAndYear(date), daysOfWeek(), firstWeek(date), secondWeek(date), thirdWeek(date), fourthWeek(date), fifthWeek(date), sixthWeek(date), options(date));

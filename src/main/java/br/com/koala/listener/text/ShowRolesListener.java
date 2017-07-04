@@ -1,6 +1,7 @@
 package br.com.koala.listener.text;
 
 import static com.pengrad.telegrambot.model.request.ParseMode.Markdown;
+import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
@@ -31,7 +32,10 @@ class ShowRolesListener extends TextListener {
 
 	@Override
 	public SendMessage listen(Message message) {
-		List<Role> roles = repository.findAll();
+		List<Role> roles = repository.findAll()
+							.stream()
+							.filter(role -> role.getTitle() != null)
+							.collect(toList());
 			
 		if (roles.isEmpty()) {
 			InlineKeyboardMarkup newRoleKeyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
