@@ -13,5 +13,9 @@ public interface RoleRepository {
 	void save(Role role);
 
 	Optional<Role> findByOrganizerIdAndTitleIsNull(Long organizerId);
+	
+	Optional<Role> findById(Long id);
+
+	void delete(Role role);
 
 }

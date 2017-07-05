@@ -12,6 +12,10 @@ public enum Command {
 	private Command(String name) {
 		this.name = name;
 	}
+	
+	public String getName() {
+		return name;
+	}
 
 	public static boolean is(String text, Command command) {
 		return text.startsWith("/" + command.name);

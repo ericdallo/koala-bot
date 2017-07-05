@@ -52,7 +52,7 @@ public class Role {
 	}
 	
 	public String getFormattedDate() {
-		return date.format(DateTimeFormatter.ofPattern("dd/MM HH:mm EEEE"));
+		return date.format(DateTimeFormatter.ofPattern("dd/MM HH:mm"));
 	}
 
 	public static Role preRole(Long organizerId, LocalDateTime dateTime) {

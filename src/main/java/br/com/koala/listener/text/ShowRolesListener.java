@@ -12,10 +12,10 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
-import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
 
 import br.com.koala.configuration.Command;
+import br.com.koala.role.ListRolesKeyboard;
 import br.com.koala.role.Role;
 import br.com.koala.role.RoleRepository;
 
@@ -36,27 +36,22 @@ class ShowRolesListener extends TextListener {
 							.stream()
 							.filter(role -> role.getTitle() != null)
 							.collect(toList());
+		
+		InlineKeyboardMarkup newRoleKeyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
+						new InlineKeyboardButton("Marcar novo role").callbackData("/marcar_role")
+		});
 			
 		if (roles.isEmpty()) {
-			InlineKeyboardMarkup newRoleKeyboard = new InlineKeyboardMarkup(new InlineKeyboardButton[]{
-	                new InlineKeyboardButton("Marcar role").callbackData("/marcar_role")
-	        });
-
 			return new SendMessage(message.chat().id(), "*Nenhum* rolê marcado \uD83D\uDE12")
 						.parseMode(Markdown)
 						.replyMarkup(newRoleKeyboard);
 		}
 		
-		StringBuilder messageToSend = new StringBuilder("Rolês marcados: \n");
+		String messageToSend = "Eae, vamo fecha ?";
 		
-		roles.forEach(role -> {
-			messageToSend.append(role.getFormattedDate() + " - *" + role.getTitle() + "*" + "\n");
-		});
-		
-		messageToSend.append("\nEae, vamo fecha ?");
-		
-		return new SendMessage(message.chat().id(), messageToSend.toString())
-						.parseMode(ParseMode.Markdown);
+		return new SendMessage(message.chat().id(), messageToSend)
+						.parseMode(Markdown)
+						.replyMarkup(new ListRolesKeyboard(roles).buildKeyboard());
 	}
 
 	@Override
