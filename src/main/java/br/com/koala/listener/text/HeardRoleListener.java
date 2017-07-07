@@ -11,7 +11,6 @@ import com.pengrad.telegrambot.request.SendMessage;
 
 import br.com.koala.configuration.Command;
 
-
 @Component
 class HeardRoleListener extends TextListener {
 
@@ -24,7 +23,6 @@ class HeardRoleListener extends TextListener {
 
 	@Override
 	public SendMessage listen(Message message) {
-		
 		return new SendMessage(message.chat().id(), "Ouvi rolê?");
 	}
 
