@@ -9,7 +9,8 @@ import com.pengrad.telegrambot.request.SendMessage;
 @Component
 public class GodListener extends TextListener {
 	
-	private static final String ROLE_REGEXP = "(.*)(d|D)(e|E)(u|U)(s|S)(.*)";
+	private static final String DEUS_REGEXP = "(.*)(d|D)(e|E)(u|U)(s|S)(.*)";
+	private static final String GOD_REGEXP = "(.*)(g|G)(o|O)(d|D)(.*)";
 	
 	GodListener(TelegramBot bot) {
 		super(bot);
@@ -23,7 +24,7 @@ public class GodListener extends TextListener {
 	@Override
 	public boolean match(Message message) {
 		String text = message.text();
-		return text.matches(ROLE_REGEXP);
+		return text.matches(DEUS_REGEXP) || text.matches(GOD_REGEXP);
 	}
 
 }
