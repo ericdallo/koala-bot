@@ -4,8 +4,8 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ChatAction;
+import com.pengrad.telegrambot.request.AbstractSendRequest;
 import com.pengrad.telegrambot.request.SendChatAction;
-import com.pengrad.telegrambot.request.SendMessage;
 
 public abstract class TextListener {
 	
@@ -15,7 +15,7 @@ public abstract class TextListener {
 		this.bot = bot;
 	}
 
-	public abstract SendMessage listen(Message message);
+	public abstract AbstractSendRequest<?> listen(Message message);
 	
 	public abstract boolean match(Message message);
 	
@@ -25,7 +25,7 @@ public abstract class TextListener {
 		if (message != null && message.text() != null && match(message)) {
 			bot.execute(new SendChatAction(message.chat().id(), ChatAction.typing.name()));
 			
-			SendMessage messageToReply = listen(message);
+			AbstractSendRequest<?> messageToReply = listen(message);
 			
 			bot.execute(messageToReply);
 		}

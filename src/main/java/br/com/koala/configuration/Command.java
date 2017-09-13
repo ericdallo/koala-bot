@@ -4,7 +4,7 @@ public enum Command {
 
 	NICKS("nicks"),
 	ROLES("roles"),
-	NEW_ROLE("marcar_role"),
+	NEW_ROLE("marcar_role"), 
 	;
 	
 	private String name;
