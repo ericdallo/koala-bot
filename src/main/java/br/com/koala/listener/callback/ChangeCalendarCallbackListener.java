@@ -30,7 +30,7 @@ class ChangeCalendarCallbackListener extends CallbackListener {
 		LocalDate date = LocalDateTime.ofInstant(Instant.ofEpochMilli(milis.longValue()), ZoneId.systemDefault()).toLocalDate();
 		
 		Message message = callback.message();
-		EditMessageReplyMarkup editedMessage = new EditMessageReplyMarkup(message.chat().id(), message.messageId(), message.text())
+		EditMessageReplyMarkup editedMessage = new EditMessageReplyMarkup(message.chat().id(), message.messageId())
 						.replyMarkup(new CalendarKeyboard(date));
 		
 		bot.execute(editedMessage);

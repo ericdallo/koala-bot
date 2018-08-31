@@ -29,7 +29,7 @@ class BackChooseDateCallbackListener extends TimeCallbackListener {
 		
 		LocalDate date = LocalDateTime.ofInstant(Instant.ofEpochMilli(milis.longValue()), ZoneId.systemDefault()).toLocalDate();
 		
-		bot.execute(new EditMessageReplyMarkup(callback.message().chat().id(), callback.message().messageId(), "Qual a data do role então?")
+		bot.execute(new EditMessageReplyMarkup(callback.message().chat().id(), callback.message().messageId())
 						.replyMarkup(new CalendarKeyboard(date)));
 	}
 

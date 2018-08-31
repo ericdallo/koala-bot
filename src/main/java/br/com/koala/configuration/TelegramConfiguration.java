@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.TelegramBotAdapter;
 
 @Configuration
 class TelegramConfiguration {
@@ -15,6 +14,7 @@ class TelegramConfiguration {
 
 	@Bean
 	TelegramBot telegramBot() {
-		return TelegramBotAdapter.build(token);
+		return new TelegramBot.Builder(token)
+				.build();
 	}
 }

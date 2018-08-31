@@ -5,7 +5,10 @@ import com.pengrad.telegrambot.model.InlineQuery;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.AnswerInlineQuery;
 
-public abstract class InlineListener {
+import br.com.koala.listener.Listener;
+import reactor.core.publisher.Mono;
+
+public abstract class InlineListener implements Listener {
 
 	protected final TelegramBot bot;
 	
@@ -15,12 +18,18 @@ public abstract class InlineListener {
 
 	public abstract AnswerInlineQuery listen(InlineQuery query);
 	
-	public void preListen(Update update) {
-		InlineQuery query = update.inlineQuery();
+	@Override
+	public Mono<Void> preListen(Update update) {
+		return Mono.defer(() -> {
 		
-		if (query != null) {
-			bot.execute(listen(query));
-		}
+			InlineQuery query = update.inlineQuery();
+			
+			if (query != null) {
+				bot.execute(listen(query));
+			}
+			
+			return Mono.empty();
+		});
 	}
 	
 }

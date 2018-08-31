@@ -36,7 +36,7 @@ class ChangeRolePageCallbackListener extends CallbackListener {
 						.filter(role -> role.getTitle() != null)
 						.collect(toList());
 		
-		bot.execute(new EditMessageReplyMarkup(callback.message().chat().id(), callback.message().messageId(), "Eae, vamo fecha ?")
+		bot.execute(new EditMessageReplyMarkup(callback.message().chat().id(), callback.message().messageId())
 						.replyMarkup(new ListRolesKeyboard(roles, page).buildKeyboard()));
 	}
 

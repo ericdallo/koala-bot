@@ -34,7 +34,7 @@ class IncrementHourTimeCallbackListener extends TimeCallbackListener {
 		
 		Message message = callback.message();
 		
-		bot.execute(new EditMessageReplyMarkup(message.chat().id(), message.messageId(), message.text())
+		bot.execute(new EditMessageReplyMarkup(message.chat().id(), message.messageId())
 						.replyMarkup(new SimpleTimeKeyboard(incrementedMilis)));
 	}
 

@@ -6,7 +6,10 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.request.SendChatAction;
 
-public abstract class CallbackListener {
+import br.com.koala.listener.Listener;
+import reactor.core.publisher.Mono;
+
+public abstract class CallbackListener implements Listener {
 	
 	protected final TelegramBot bot;
 	
@@ -18,13 +21,17 @@ public abstract class CallbackListener {
 	
 	public abstract boolean match(CallbackQuery callback);
 	
-	public void preListen(Update update) {
-		CallbackQuery callback = update.callbackQuery();
-		
-		if (callback != null && match(callback)) {
-			bot.execute(new SendChatAction(callback.inlineMessageId(), ChatAction.typing.name()));
+	@Override
+	public Mono<Void> preListen(Update update) {
+		return Mono.defer(() -> {
+			CallbackQuery callback = update.callbackQuery();
 			
-			listen(callback);
-		}
+			if (callback != null && match(callback)) {
+				bot.execute(new SendChatAction(callback.inlineMessageId(), ChatAction.typing.name()));
+				
+				listen(callback);
+			}
+			return Mono.empty();
+		});
 	}
 }

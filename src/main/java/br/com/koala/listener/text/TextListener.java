@@ -7,7 +7,10 @@ import com.pengrad.telegrambot.model.request.ChatAction;
 import com.pengrad.telegrambot.request.AbstractSendRequest;
 import com.pengrad.telegrambot.request.SendChatAction;
 
-public abstract class TextListener {
+import br.com.koala.listener.Listener;
+import reactor.core.publisher.Mono;
+
+public abstract class TextListener implements Listener {
 	
 	protected final TelegramBot bot;
 	
@@ -19,16 +22,20 @@ public abstract class TextListener {
 	
 	public abstract boolean match(Message message);
 	
-	public void preListen(Update update) {
-		Message message = update.message();
-		
-		if (message != null && message.text() != null && match(message)) {
-			bot.execute(new SendChatAction(message.chat().id(), ChatAction.typing.name()));
+	@Override
+	public Mono<Void> preListen(Update update) {
+		return Mono.defer(() -> {
+			Message message = update.message();
 			
-			AbstractSendRequest<?> messageToReply = listen(message);
-			
-			bot.execute(messageToReply);
-		}
+			if (message != null && message.text() != null && match(message)) {
+				bot.execute(new SendChatAction(message.chat().id(), ChatAction.typing.name()));
+				
+				AbstractSendRequest<?> messageToReply = listen(message);
+				
+				bot.execute(messageToReply);
+			}
+			return Mono.empty();
+		});
 	}
 
 }
